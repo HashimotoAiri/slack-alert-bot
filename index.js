@@ -6,8 +6,9 @@ const app = new App({
   port: Number(process.env.PORT),
 });
 
+// 起動
 (async () => {
-  await app.start();
+  await app.start(process.env.PORT);
   console.log("⚡ Slack bot is running");
 })();
 
