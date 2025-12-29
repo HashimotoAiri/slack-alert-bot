@@ -21,7 +21,7 @@ app.event("message", async ({ event, client }) => {
 
   await client.chat.postMessage({
     channel: ALERT_CHANNEL,
-    text: `🚨 <@${MENTION_USER}> 新規投稿を検知\n\n> ${text}`,
+    text: `🚨 <@${MENTION_USER}> UPSIDER利用通知💳️\n\n> ${text}`,
   });
 });
 
