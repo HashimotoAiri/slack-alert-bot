@@ -3,9 +3,13 @@ import { App } from "@slack/bolt";
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
-  socketMode: false, // ← 重要
   port: Number(process.env.PORT),
 });
+
+(async () => {
+  await app.start();
+  console.log("⚡ Slack bot is running");
+})();
 
 // ===== 設定 =====
 const WATCH_CHANNEL = "C0A5P2ML71T";   // 監視チャンネルID
