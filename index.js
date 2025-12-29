@@ -3,25 +3,23 @@ import { App } from "@slack/bolt";
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
+  socketMode: false, // ← 重要
+  port: process.env.PORT || 3000, // ← Railway対応
 });
 
-// ★設定ここだけ変える
+// ===== 設定 =====
 const WATCH_CHANNEL = "C0A5P2ML71T";   // 監視チャンネルID
 const ALERT_CHANNEL = "C0A62DM3492";   // 通知チャンネルID
 const MENTION_USER = "U0A5B3TBL5V";    // あなたのユーザーID
+// =================
 
+// メッセージイベント
 app.event("message", async ({ event, client }) => {
-  // Bot自身やjoin通知を除外
   if (event.subtype) return;
-
-  // チャンネル限定
   if (event.channel !== WATCH_CHANNEL) return;
 
   const text = event.text ?? "";
-
-  // 条件（例：UPSIDER系）
-  const hit = /UPSIDER|決済|利用|支払い|¥|円/.test(text);
-  if (!hit) return;
+  if (!/UPSIDER|決済|利用|支払い|¥|円/.test(text)) return;
 
   await client.chat.postMessage({
     channel: ALERT_CHANNEL,
@@ -29,7 +27,8 @@ app.event("message", async ({ event, client }) => {
   });
 });
 
+// 起動
 (async () => {
-  await app.start(process.env.PORT || 3000);
-  console.log("⚡ Slack bot running");
+  await app.start();
+  console.log("⚡ Slack bot is running");
 })();
