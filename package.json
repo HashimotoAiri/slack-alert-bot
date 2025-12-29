@@ -1,7 +1,6 @@
 {
   "name": "slack-alert-bot",
   "version": "1.0.0",
-  "type": "module",
   "dependencies": {
     "@slack/bolt": "^3.15.0"
   },
