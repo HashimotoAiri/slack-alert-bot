@@ -1,21 +1,14 @@
 import { App } from "@slack/bolt";
 
-// const app = new App({
-//   token: process.env.SLACK_BOT_TOKEN,
-//   signingSecret: process.env.SLACK_SIGNING_SECRET,
-//   port: Number(process.env.PORT),
-// });
-
-// 起動
-(async () => {
-  await app.start(process.env.PORT);
-  console.log("⚡ Slack bot is running");
-})();
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+});
 
 // ===== 設定 =====
 const WATCH_CHANNEL = "C0A5P2ML71T";   // 監視チャンネルID
 const ALERT_CHANNEL = "C0A62DM3492";   // 通知チャンネルID
-const MENTION_USER = "U0A5B3TBL5V";    // あなたのユーザーID
+const MENTION_USER  = "U0A5B3TBL5V";   // あなたのユーザーID
 // =================
 
 // メッセージイベント
@@ -32,8 +25,8 @@ app.event("message", async ({ event, client }) => {
   });
 });
 
-// 起動
+// 起動（Railwayが割り当てたPORTで待ち受け）
 (async () => {
-  await app.start();
+  await app.start(process.env.PORT);
   console.log("⚡ Slack bot is running");
 })();
