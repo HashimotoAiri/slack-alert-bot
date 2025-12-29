@@ -4,7 +4,7 @@ const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   socketMode: false, // ← 重要
-  port: process.env.PORT || 3000, // ← Railway対応
+  port: Number(process.env.PORT),
 });
 
 // ===== 設定 =====
