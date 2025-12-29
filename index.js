@@ -16,8 +16,8 @@ app.event("message", async ({ event, client }) => {
   if (event.subtype) return;
   if (event.channel !== WATCH_CHANNEL) return;
 
-//   const text = event.text ?? "";
-//   if (!/UPSIDER|決済|利用|支払い|¥|円/.test(text)) return;
+  const text = event.text ?? "";
+  if (!/UPSIDER|決済|利用|支払い|¥|円/.test(text)) return;
 
   await client.chat.postMessage({
     channel: ALERT_CHANNEL,
